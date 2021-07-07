@@ -1,32 +1,177 @@
 {
+  "1d-1km-NAM218" : {
+    "identifier" : "1d-1km-NAM218",
+    "title" : "Single domain, 1km resolution with 33m fire grid, NAM218 12km forcing",
+    "info" : "A one-domain configuration with 69x69km at 1km resolution with 33m fire grid.",
+    "template" : "profiles/1d_1km_NAM218.json"
+  },
+  "1d-1km-NAM227" : {
+    "identifier" : "1d-1km-NAM227",
+    "title" : "Single domain, 1km resolution with 33m fire grid, NAM227 5km forcing",
+    "info" : "A one-domain configuration with 69x69km at 1km resolution with 33m fire grid.",
+    "template" : "profiles/1d_1km_NAM227.json"
+  },
   "1d-2km-NAM218" : {
     "identifier" : "1d-2km-NAM218",
-    "title" : "Single domain, 2km cell size, 25m fire grid, NAM218 12km forcing",
-    "info" : "One domain, 120x120km, 2km resolution with 25m fire grid.",
+    "title" : "Single domain, 2km resolution with 40m fire grid, NAM218 12km forcing",
+    "info" : "A one-domain configuration with 100x100km at 2km resolution with 40m fire grid.",
     "template" : "profiles/1d_2km_NAM218.json"
   },
   "1d-2km-NAM227" : {
     "identifier" : "1d-2km-NAM227",
-    "title" : "Single domain, 2km cell size, 25m fire grid, NAM227 5km forcing",
-    "info" : "One domain, 120x120km, 2km resolution with 25m fire grid.",
+    "title" : "Single domain, 2km resolution with 40m fire grid, NAM227 5km forcing",
+    "info" : "A one-domain configuration with 100x100km at 2km resolution with 40m fire grid.",
     "template" : "profiles/1d_2km_NAM227.json"
+  },
+  "2d-1667m-NAM227" : {
+    "identifier" : "2d-1667m-NAM227",
+    "title" : "Two domains, 5km/1.6km resolution with 83m fire grid, NAM227 5km forcing",
+    "info" : "A two-domains configuration with 415x415km at 5km resolution and 210x160km at 1667m resolution with 83m fire grid.",
+    "template" : "profiles/2d_1667m_NAM227.json"
   },
   "2d-1km-NAM218" : {
     "identifier" : "2d-1km-NAM218",
-    "title" : "Two domains, 3km/1km resolution with 25m fire grid, NAM218 12km forcing",
-    "info" : "A two-domain configuration with 60x60km fire domain at 1km resolution and a 25m fire grid.",
+    "title" : "Two domains, 3km/1km resolution with 33m fire grid, NAM218 12km forcing",
+    "info" : "A two-domains configuration with 180x180km at 3km resolution and 66x66km at 1km resolution with 33m fire grid.",
     "template" : "profiles/2d_1km_NAM218.json"
-  },  
+  },
   "2d-333m-HRRR" : { 
     "identifier" : "2d-333m-HRRR",
-    "title" : "Two domains, 1km/0.33km cell size, 33m fire grid. HRRR 3km forcing",
-    "info" : "A two-domain configuration with 20x20km fire domain at 333m resolution and a 33m fire grid.",
+    "title" : "Two domains, 1km/0.33km cell size, 33m fire grid, HRRR 3km forcing",
+    "info" : "A two-domain configuration with 60x60km at 1km resolution and 22x22km at 333m resolution with 33m fire grid.",
     "template" : "profiles/2d_333m_HRRR.json"
   }, 
-  "3d-555m_NAM227" : { 
-    "identifier" : "3d-555m_NAM227",
-    "title" : "Three domains, 5km/1.6km/0.55km cell size, 28m fire grid., NAM227 5km forcing",
-    "info" : "A three-domain configuration with 66x66km fire domain at 555m resolution and a 28m fire grid.", 
+  "2d-500m-NAM218" : { 
+    "identifier" : "2d-500m-NAM218",
+    "title" : "Two domains, 1.5km/500m cell size, 25m fire grid, NAM218 12km forcing",
+    "info" : "A two-domain configuration with 103x103km at 1.5km resolution and 35x35km at 500m resolution with 25m fire grid.",
+    "template" : "profiles/2d_500m_NAM218.json"
+  }, 
+  "2d-500m-NAM218L" : { 
+    "identifier" : "2d-500m-NAM218L",
+    "title" : "Two domains, 1.5km/500m cell size, 25m fire grid, NAM218 12km forcing",
+    "info" : "A two-domain configuration with 144x144km at 1.5km resolution and 84kmx84km at 500m resolution with 25m fire grid.",
+    "template" : "profiles/2d_500m_NAM218L.json"
+  }, 
+  "3d-1333m-NAM218" : {
+    "identifier" : "3d-1333m-NAM218",
+    "title" : "Three domains, 12km/4km/1.33km cell size, 67m fire grid, NAM218 12km forcing",
+    "info" : "A three-domain configuration with 1152x1152km at 12km resolution, 612x612km at 4km resolution, and 128x128km at 1333m resolution with 67m fire grid.",
+    "template" : "profiles/3d_1333m_NAM218.json"
+  },
+  "3d-1333m-NAM218L" : {
+    "identifier" : "3d-1333m-NAM218L",
+    "title" : "Three domains, 12km/4km/1.33km cell size, 67m fire grid., NAM218 12km forcing",
+    "info" : "A three-domain configuration with 1152x1152km at 12km resolution, 612x612km at 4km resolution, and 168x168km at 1333m resolution with 67m fire grid.",
+    "template" : "profiles/3d_1333m_NAM218L.json"
+  },
+  "3d-250m-NAM218" : {
+    "identifier" : "3d-250m-NAM218",
+    "title" : "Three domains, 2.25km/750m/250m cell size, 25m fire grid, NAM218 12km forcing",
+    "info" : "A three-domain configuration with 155x155km at 2.25km resolution, 52x52km at 750m resolution, and 17x17km at 250m resolution with 25m fire grid.",
+    "template" : "profiles/3d_250m_NAM218.json"
+  },
+  "3d-250m-NAM218M" : {
+    "identifier" : "3d-250m-NAM218M",
+    "title" : "Three domains, 2.25km/750m/250m cell size, 25m fire grid, NAM218 12km forcing",
+    "info" : "A three-domain configuration with 216x216km at 2.25km resolution, 72x72km at 750m resolution, and 30x30km at 250m resolution with 25m fire grid.",
+    "template" : "profiles/3d_250m_NAM218M.json"
+  },
+  "3d-250m-NAM218L" : {
+    "identifier" : "3d-250m-NAM218L",
+    "title" : "Three domains, 2.25km/750m/250m cell size, 25m fire grid, NAM218 12km forcing",
+    "info" : "A three-domain configuration with 216x216km at 2.25km resolution, 72x72km at 750m resolution, and 41x41km at 250m resolution with 25m fire grid.",
+    "template" : "profiles/3d_250m_NAM218L.json"
+  },
+  "3d-250m-NAM227" : {
+    "identifier" : "3d-250m-NAM227",
+    "title" : "Three domains, 2.25km/750m/250m cell size, 25m fire grid, NAM227 12km forcing",
+    "info" : "A three-domain configuration with 155x155km at 2.25km resolution, 52x52km at 750m resolution, and 17x17km at 250m resolution with 25m fire grid.",
+    "template" : "profiles/3d_250m_NAM227.json"
+  },
+  "3d-250m-NAM227M" : {
+    "identifier" : "3d-250m-NAM227M",
+    "title" : "Three domains, 2.25km/750m/250m cell size, 25m fire grid, NAM227 5km forcing",
+    "info" : "A three-domains configuration with 216x216km at 2.25km resolution, 72x72km at 750m resolution, and 30x30km at 250m resolution with 25m fire grid.",
+    "template" : "profiles/3d_250m_NAM227M.json"
+  },
+  "3d-250m-NAM227L" : {
+    "identifier" : "3d-250m-NAM227L",
+    "title" : "Three domains, 2.25km/750m/250m cell size, 25m fire grid, NAM227 12km forcing",
+    "info" : "A three-domain configuration with 216x216km at 2.25km resolution, 72x72km at 750m resolution, and 41x41km at 250m resolution with 25m fire grid.",
+    "template" : "profiles/3d_250m_NAM227L.json"
+  },
+  "3d-333m-NAM218M" : {
+    "identifier" : "3d-333m-NAM218M",
+    "title" : "Three domains, 3km/1km/0.33km cell size, 33m fire grid, NAM218 12km forcing",
+    "info" : "A three-domain configuration with 288x288km at 3km resolution, 96x96km at 1km resolution, and 43x43km at 333m resolution with 33m fire grid.",
+    "template" : "profiles/3d_333m_NAM218M.json"
+  },
+  "3d-333m-NAM218XL" : {
+    "identifier" : "3d-333m-NAM218XL",
+    "title" : "Three domains, 3km/1km/0.33km cell size, 33m fire grid, NAM218 12km forcing",
+    "info" : "A three-domain configuration with 288x288km at 3km resolution, 195x195km at 1km resolution, and 65x65km at 333m resolution with 33m fire grid.",
+    "template" : "profiles/3d_333m_NAM218XL.json"
+  },
+  "3d-333m-NAM227" : { 
+    "identifier" : "3d-333m-NAM227",
+    "title" : "Three domains, 3km/1km/0.33km cell size, 33m fire grid, NAM227 5km forcing",
+    "info" : "A three-domain configuration with 207x207km at 3km resolution, 69x69km at 1km resolution, and 23x23km at 333m resolution with 33m fire grid.", 
+    "template" : "profiles/3d_333m_NAM227.json"
+  },
+  "3d-555m-NAM218" : {
+    "identifier" : "3d-555m-NAM218",
+    "title" : "Three domains, 5km/1.6km/0.55km cell size, 28m fire grid, NAM218 12km forcing",
+    "info" : "A three-domain configuration with 345x345km at 5km resolution, 115x115km at 1.6km resolution, and 38x38km at 555m resolution with 28m fire grid.",
+    "template" : "profiles/3d_555m_NAM218.json"
+  },
+  "3d-555m-NAM218M" : {
+    "identifier" : "3d-555m-NAM218M",
+    "title" : "Three domains, 5km/1.6km/0.55km cell size, 28m fire grid, NAM218 12km forcing",
+    "info" : "A three-domain configuration with 480x480km at 5km resolution, 160x160km at 1.6km resolution, and 53x53km at 555m resolution with 28m fire grid.",
+    "template" : "profiles/3d_555m_NAM218M.json"
+  },
+  "3d-555m-NAM218L" : {
+    "identifier" : "3d-555m-NAM218L",
+    "title" : "Three domains, 5km/1.6km/0.55km cell size, 28m fire grid, NAM218 12km forcing",
+    "info" : "A three-domain configuration with 975x975km at 5km resolution, 325x325km at 1.6km resolution, and 108x108km at 555m resolution with 28m fire grid.",
+    "template" : "profiles/3d_555m_NAM218L.json"
+  },
+  "3d-555m-NAM218XL" : {
+    "identifier" : "3d-555m-NAM218XL",
+    "title" : "Three domains, 5km/1.6km/0.55km cell size, 31m fire grid, NAM218 12km forcing",
+    "info" : "A three-domain configuration with 820x820km at 5km resolution, 280x280km at 1.6km resolution, and 160x160km at 555m resolution with 31m fire grid.",
+    "template" : "profiles/3d_555m_NAM218XL.json"
+  },
+  "3d-555m-NAM227" : {
+    "identifier" : "3d-555m-NAM227",
+    "title" : "Three domains, 5km/1.6km/0.55km cell size, 28m fire grid, NAM227 5km forcing",
+    "info" : "A three-domain configuration with 500x500km at 5km resolution, 205x205km at 1.6km resolution, and 68x68km at 555m resolution with 28m fire grid.",
     "template" : "profiles/3d_555m_NAM227.json"
-  }    
+  },
+  "3d-555m-NAM227M" : {
+    "identifier" : "3d-555m-NAM227M",
+    "title" : "Three domains, 5km/1.6km/0.55km cell size, 28m fire grid, NAM227 5km forcing",
+    "info" : "A three-domain configuration with 480x480km at 5km resolution, 160x160km at 1.6km resolution, and 53x53km at 555m resolution with 28m fire grid.",
+    "template" : "profiles/3d_555m_NAM227M.json"
+  },
+  "4d-444m-CFSR" : {
+    "identifier" : "4d-444m-CFSR",
+    "title" : "Four domains, 12km/4km/1.33km/444mm cell size, 44m fire grid, CFSR 36km forcing",
+    "info" : "A four-domain configuration for historical runs with 828x828km at 12km resolution, 276x276km at 4km resolution, 92x92km at 1.33km resolution, and 30x30km at 444m resolution with 44m fire grid.",
+    "template" : "profiles/4d_444m_CFSR.json"
+  },
+  "5d-148m-CFSR" : {
+    "identifier" : "5d-148m-CFSR",
+    "title" : "Five domains, 12km/4km/1.33km/444m/148m cell size, 15m fire grid, CFSR 36km forcing",
+    "info" : "A five-domain configuration for historical runs with 828x828km at 12km resolution, 276x276km at 4km resolution, 92x92km at 1.33km resolution, 30x30km at 444m resolution, and 14x14km at 148m resolution with 15m fire grid.",
+    "template" : "profiles/5d_148m_CFSR.json"
+  },
+  "5d-148m-NARR" : {
+    "identifier" : "5d-148m-NARR",
+    "title" : "Five domains, 12km/4km/1.33km/444m/148m cell size, 15m fire grid, NARR 36km forcing",
+    "info" : "A five-domain configuration for historical runs with 828x828km at 12km resolution, 276x276km at 4km resolution, 92x92km at 1.33km resolution, 30x30km at 444m resolution, and 13x13km at 148m resolution with 15m fire grid.",
+    "template" : "profiles/5d_148m_NARR.json"
+  }
 }
+

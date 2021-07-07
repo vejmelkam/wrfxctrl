@@ -17,12 +17,14 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 # SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import absolute_import
 import json
 from datetime import datetime
 import pytz
 import logging 
 import os
 import os.path as osp
+import six
 
 class Dict(dict):
     """
@@ -49,7 +51,7 @@ def load_profiles():
     :return: a dict keyed by profile id containing Dicts with profile info
     """
     profs = json.load(open('etc/profiles.json'))
-    return {name:Dict(p) for name,p in profs.iteritems()}
+    return {name:Dict(p) for name,p in six.iteritems(profs)}
 
 def to_esmf(ts):
     """

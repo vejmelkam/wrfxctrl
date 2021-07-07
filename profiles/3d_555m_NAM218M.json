@@ -1,0 +1,59 @@
+{
+  "grid_code": "3d-555m-NAM218M",
+  "grib_source": "NAM",
+  "wps_namelist_path": "etc/nlists/default.wps",
+  "wrf_namelist_path": "etc/nlists/default.input",
+  "fire_namelist_path": "etc/nlists/default.fire",
+  "emissions_namelist_path": "etc/nlists/default.fire_emissions",
+  "num_nodes": 7,
+  "ppn": 28,
+  "wall_time_hrs": 6,
+  "start_utc": "T-30",
+  "end_utc": "T+300",
+  "domains" : {
+    "1" : { 
+      "cell_size" : [5000, 5000],
+      "domain_size" : [97, 97],
+      "center_latlon" : [39.894264, -103.903222],
+      "truelats" : [39, 40.8],
+      "stand_lon" : -103.9,
+      "time_step" : 30,
+      "history_interval" : 60,
+      "geog_res" : "30s",
+      "subgrid_ratio" : [0, 0]
+    },
+    "2" : {
+      "parent_id" : 1,
+      "parent_cell_size_ratio" : 3,
+      "parent_time_step_ratio" : 3,
+      "geog_res" : ".3s",
+      "subgrid_ratio" : [0, 0],
+      "parent_start" : [33, 33],
+      "parent_end" : [64, 64],
+      "history_interval" : 30
+    },
+    "3" : {
+      "parent_id" : 2,
+      "parent_cell_size_ratio" : 3,
+      "parent_time_step_ratio" : 3,
+      "geog_res" : ".3s",
+      "subgrid_ratio" : [20, 20],
+      "parent_start" : [33, 33],
+      "parent_end" : [64, 64],
+      "history_interval" : 15
+    }
+  },
+  "ignitions" : {
+     "3" : [ {
+      "time_utc" : "T+10",
+      "duration_s" : 240,
+      "latlon" : [39.894264, -103.903222]
+     } ]
+  },
+  "postproc" : {
+      "1" : [ "SMOKETO10M", "WINDSPD", "WINDVEC","WINDSPD1000FT","WINDVEC1000FT","SMOKE1000FT","SMOKE_INT","PM25_INT","PLUME_HEIGHT" ],
+      "2" : [ "SMOKETO10M", "WINDSPD", "WINDVEC","WINDSPD1000FT","WINDVEC1000FT","SMOKE1000FT","SMOKE_INT","PM25_INT","PLUME_HEIGHT","RAIN" ],
+      "3" : [ "SMOKETO10M", "WINDSPD", "WINDVEC","WINDSPD1000FT","WINDVEC1000FT","SMOKE1000FT","SMOKE_INT","PM25_INT","PLUME_HEIGHT", "FIRE_AREA","FGRNHFX","1HR_FM","10HR_FM","RAIN" ]
+  }
+}
+

@@ -18,6 +18,8 @@
 # SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
+from __future__ import absolute_import
+from __future__ import print_function
 from cluster import Cluster
 from simulation import create_simulation, get_simulation_state, cancel_simulation, delete_simulation, load_simulations
 from utils import Dict, to_esmf, to_utc, load_profiles, load_sys_cfg
@@ -27,6 +29,8 @@ from datetime import datetime, timedelta
 import pytz
 import os
 import stat
+import random
+import string
 import os.path as osp
 from subprocess import Popen
 from functools import wraps, update_wrapper
@@ -43,12 +47,17 @@ conf = load_sys_cfg()
 sims_path = conf['sims_path']
 simulations = load_simulations(sims_path)
 
-root = conf['root']
+if 'root' in conf:
+    root = osp.join('/',conf['root'])
+else:
+    root = osp.join('/',''.join(random.choice(string.ascii_lowercase) for i in range(5)))
 host = conf['host']
 debug = conf['debug'] in ['T' 'True' 't' 'true']
-port=conf['port']
-urls = {'submit': root+'/submit', 'welcome': root+'/start', 'overview': root+'/overview'}
-print ('Welcome page is http://%s:%s%s' % (host, port, urls['welcome']) )
+port = conf['port']
+urls = {'submit': osp.normpath(root+'/submit'), 'welcome': osp.normpath(root+'/start'), 'overview': osp.normpath(root+'/overview')}
+welcome_page = 'http://{0}:{1}{2}'.format(host,port,urls['welcome'])
+print('Welcome page is {}'.format(welcome_page))
+#Popen(["firefox", welcome_page])
 
 app = Flask(__name__)
 
@@ -77,12 +86,12 @@ def welcome():
 def build():
     if request.method == 'GET':
         # it's a get so let's build a fire simulation
-        return render_template('build.html', profiles=profiles.values(), urls=urls)
+        return render_template('build.html', profiles=list(profiles.values()), urls=urls)
     elif request.method == 'POST':
         # it's a POST so initiate a simulation
         sim_cfg = request.form.copy()  # dictionary values set in the html  <select name="KEY" class="ui dropdown" id="KEY">
-        print 'values returned by build page:'
-        print  json.dumps(sim_cfg, indent=4, separators=(',', ': '))
+        print('values returned by build page:')
+        print(json.dumps(sim_cfg, indent=4, separators=(',', ': ')))
         sim_cfg['profile'] = profiles[sim_cfg['profile']]
         sim_info = create_simulation(sim_cfg, conf,cluster)
         sim_id = sim_info['id']
@@ -106,7 +115,7 @@ def overview():
         simulations = load_simulations(sims_path)
         deadline = to_esmf(datetime.now() - timedelta(seconds=5))
         # only update stale & running simulations in overview
-        kk = simulations.keys()   
+        kk = list(simulations.keys())   
         for sim_id in kk:
             sim = simulations[sim_id]
             if sim['state']['wrf'] != 'complete':
@@ -123,19 +132,19 @@ def overview():
                         del simulations[sim_id]
         return render_template('overview.html', simulations = simulations, urls=urls)
     elif request.method == 'POST':
-        print 'Values returned by overview page:'
+        print('Values returned by overview page:')
         sims_checked= request.form.getlist('sim_chk')
         print (sims_checked)
         for sim_id in sims_checked:  # Only the simulation(s) checked in checkbox.
             if 'RemoveB' in request.form:
-                print ('Remove Sim: box checked= %s' % (sim_id)) 
+                print('Remove Sim: box checked= %s' % (sim_id)) 
                 cleanup_delete(sim_id)
             else:
                 if 'CancelB' in request.form:
-                    print ('Cancel Sim: box checked= %s' % (sim_id))
+                    print('Cancel Sim: box checked= %s' % (sim_id))
                     cleanup_cancel(sim_id)
                 else:
-                    print ('Error-No button push detected: box checked= %s' % (sim_id))
+                    print('Error-No button push detected: box checked= %s' % (sim_id))
         simulations = load_simulations(sims_path)
         return render_template('overview.html', simulations = simulations, urls=urls)
 
@@ -183,7 +192,7 @@ def cancel_sim(sim_id=None):
 
 @app.route("/all_sims")
 def get_all_sims():
-    print json.dumps(simulations, indent=4, separators=(',', ': '))
+    print(json.dumps(simulations, indent=4, separators=(',', ': ')))
     return json.dumps(simulations, indent=4, separators=(',', ': '))
 
 

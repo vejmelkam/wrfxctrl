@@ -29,7 +29,7 @@
           </tr>
         </thead>
         <tbody>
-          {% for sim_id,sim in simulations.iteritems() %}
+          {% for sim_id,sim in simulations.items() %}
           <tr>
 <!--            <td> <div class="ui checkbox"> <input type="checkbox" class="jobcb" name="{{sim_id}}"><label></label></div> </td> -->
             <td> <div class="ui checkbox"> <input type="checkbox" class="jobcb" name="sim_chk" value="{{sim_id}}" onClick="cb_func(this)"><label></label></div> </td>
@@ -53,9 +53,7 @@
      <input class="ui left floated red button" type="submit" id="CancelButton" name="CancelB" value="Cancel" />
      <a href="{{ urls['welcome'] }}" class="ui right floated blue button">Home</a>
      <a href="{{ urls['submit'] }}" class="ui right floated red button"><i class="fire icon"></i>Start a new fire</a>
-      <!--
-      <p id="acknowledgement"> <a href="http://www.openwfm.org" target="_blank"> University of Colorado Denver, Wildland Fire Group 2018</a></p>
-      -->
+     <p id="acknowledgement"> <a href="http://www.openwfm.org" target="_blank">University of Utah and CU Denver Wildland Fire Group <script>document.write(new Date().getFullYear())</script></a></p>
    </div>
 </div>
 

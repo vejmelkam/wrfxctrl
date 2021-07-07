@@ -1,7 +1,6 @@
 {
    "host" : "127.0.0.1",
    "port" : "5000",
-   "root" : "",
    "debug" : "False",
    "wrfxweb_url" : "http://host.domain/root",
    "wrfxpy_path" : "/home/USER/wrfxpy",

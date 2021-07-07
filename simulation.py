@@ -17,6 +17,8 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 #
 
+from __future__ import absolute_import
+from __future__ import print_function
 from utils import to_esmf, to_utc, rm
 from datetime import datetime, timedelta
 import pytz
@@ -63,9 +65,9 @@ def cancel_simulation(sim_info,conf):
 
     paths = simulation_paths(sim_info['id'],conf)
     log_path = paths['log_path']
-    with open(log_path, "a") as f:
+    with open(log_path, 'wb') as f:
         f.write(out)
-        f.write("Cancelled")
+        f.write(b'Cancelled')
 
 def cleanup_sim_output(sim_info,conf):
     """    Cleanup simulation output.
@@ -108,7 +110,7 @@ def delete_simulation_files(sim_id,conf):
     :param sim_id: the simulation id
     :param conf: configuration
     """
-    rm(simulation_paths(sim_id,conf).values())
+    rm(list(simulation_paths(sim_id,conf).values()))
 
 def load_simulations(sims_path):
     """
@@ -159,7 +161,7 @@ def create_simulation(info, conf, cluster):
 
     # store simulation configuration
     profile = info['profile']
-    print ('profile = %s' % json.dumps(profile,indent=1, separators=(',',':')))
+    print('profile = %s' % json.dumps(profile,indent=1, separators=(',',':')))
     ign_lat, ign_lon = float(info['ignition_latitude']), float(info['ignition_longitude'])
     # example of ignition time: Apr 10, 1975 9:45 PM
     ign_time_esmf = to_esmf(datetime.strptime(info['ignition_time'], '%b %d, %Y %I:%M %p'))
@@ -181,14 +183,13 @@ def create_simulation(info, conf, cluster):
     # build a new job template
     template = osp.abspath(profile['template'])
     cfg = json.load(open(template))
-    print ('Job template %s:' % template)
-    print json.dumps(cfg, indent=4, separators=(',', ': '))
+    print('Job template %s:' % template)
+    print(json.dumps(cfg, indent=4, separators=(',', ': ')))
     
     cfg['template'] = template
     cfg['profile'] = profile
     cfg['grid_code'] = sim_id
-    # cfg['qsys'] = cluster.qsys
-    cfg['num_nodes'] = 6
+    cfg['num_nodes'] = cluster.nodes
     cfg['ppn'] = cluster.ppn
     ign_time = to_utc(ign_time_esmf)
     sim_start = (ign_time - timedelta(minutes=30)).replace(minute=0, second=0)
@@ -197,11 +198,11 @@ def create_simulation(info, conf, cluster):
     sim_info['end_utc'] = to_esmf(sim_end)
     cfg['start_utc'] = to_esmf(sim_start)
     cfg['end_utc'] = to_esmf(sim_end)
-    if not cfg.has_key('grib_source') or cfg['grib_source'] == 'auto':
+    if 'grib_source' not in cfg or cfg['grib_source'] == 'auto':
         cfg['grib_source'] = select_grib_source(sim_start)
-        print 'GRIB source not specified, selected %s from sim start time' % cfg['grib_source']
+        print('GRIB source not specified, selected %s from sim start time' % cfg['grib_source'])
     else:
-        print 'Using GRIB source %s from %s' % (cfg['grib_source'], profile['template'])
+        print('Using GRIB source %s from %s' % (cfg['grib_source'], profile['template']))
 
     # build wrfpy_id and the visualization link
     job_id = 'wfc-%s-%s-%02d' % (sim_id, to_esmf(sim_start), fc_hours)
@@ -215,7 +216,7 @@ def create_simulation(info, conf, cluster):
     cfg['domains']['1']['center_latlon'] = [ign_lat, ign_lon]
 
     # all templates have exactly one ignition
-    domain = cfg['ignitions'].keys()[0]
+    domain = list(cfg['ignitions'].keys())[0]
     cfg['ignitions'][domain][0]['time_utc'] = ign_time_esmf
     # example:  "latlon" : [39.894264, -103.903222]
     cfg['ignitions'][domain][0]['latlon'] = [ign_lat, ign_lon]
@@ -226,8 +227,8 @@ def create_simulation(info, conf, cluster):
 
     json.dump(cfg, open(json_path, 'w'),indent=1, separators=(',',':'))
 
-    print ('Job configuration %s:' % json_path)
-    print json.dumps(cfg, indent=4, separators=(',', ': '))
+    print('Job configuration %s:' % json_path)
+    print(json.dumps(cfg, indent=4, separators=(',', ': ')))
 
     # drop a shell script that will run the file
     with open(run_script, 'w') as f:
@@ -258,9 +259,9 @@ def parse_error(state, line):
     :param line: the line that created the error
     :param state: the state dictionary containing state of each tool
     """
-    tools = ['geogrid', 'ungrib', 'metgrid', 'real', 'wrf']
+    tools = ['geogrid', 'ingest', 'ungrib', 'metgrid', 'real', 'wrf', 'output']
     for t in tools:
-        if t in line:
+        if t in line.lower() or state[t] in ['waiting','running']:
             state[t] = 'failed'
             return
 
@@ -305,6 +306,8 @@ def get_simulation_state(path):
     try:
         f = open(path)
         for line in f:
+            if 'ERROR' in line:
+                parse_error(state,line)
             if 'subprocess.CalledProcessError' in line:
                 parse_error(state, line)
             if 'WRF completion detected' in line:
@@ -319,6 +322,7 @@ def get_simulation_state(path):
                 state['ingest'] = 'complete'
                 state['ungrib'] = 'running'
             elif 'UNGRIB complete' in line:
+                state['ingest'] = 'complete'
                 state['ungrib'] = 'complete'
             elif 'running METGRID' in line:
                 state['metgrid'] = 'running'
@@ -337,6 +341,12 @@ def get_simulation_state(path):
             if 'Cancelled' in line:
                 state['wrf'] = 'cancelled'
         f.close()
+        if state['geogrid'] == 'failed' or \
+           state['ungrib'] == 'failed':
+            state['metgrid'] = 'failed'
+            state['real'] = 'failed'
+            state['wrf'] = 'failed'
+            state['output'] = 'failed'
     except:
-        print "Cannot open file %s" % path
+        print("Cannot open file %s" % path)
     return state

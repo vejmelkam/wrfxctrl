@@ -81,7 +81,10 @@
                     <option value="12">12</option>
                     <option value="18">18</option>
                     <option value="24">24</option>
+ 		    <option value="36">36</option>
                     <option value="48">48</option>
+                    <option value="60">60</option>
+		    <option value="72">72</option>
                 </select>
            </div>
         </div>
@@ -92,8 +95,8 @@
       <div class="ui two column grid fixed-height-grid">
         
         <div class="column">
-          <div class="field">
-            <div class="ui fluid vertical pointing menu">
+          <div class="field" style="height:300px;">
+            <div class="ui fluid vertical pointing menu" style="height:100%; overflow:auto;">
               <input type="hidden" name="profile" id="profile">
               {% for profile in profiles %}
               <a class="item"
@@ -115,21 +118,23 @@
         </div>
         
       </div>
-      
       <br />
       <br />
       <br />
       <br />
       <br />
       <br />
-      
+      <br />
+      <br />
+      <br />
+ 
       <button class="ui massive negative button" style="margin-bottom: 20px;" type="submit">
         <i class="fire icon"></i>Ignite
       </button>
       <a href="{{ urls['welcome'] }}" class="ui right floated blue button">Home</a>
       
       <div>
-        <p><a href="http://www.openwfm.org" target="_blank">CU Denver Wildland Fire Group 2016</a></p>
+        <p><a href="http://www.openwfm.org" target="_blank">University of Utah and CU Denver Wildland Fire Group <script>document.write(new Date().getFullYear())</script></a></p>
       </div>
 
     </div>
